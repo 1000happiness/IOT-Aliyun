@@ -1,0 +1,34 @@
+{
+    "properties": [
+      {
+        "identifier": "Temperature",
+        "dataType": {
+          "type": "double"
+        }
+      },
+      {
+        "identifier": "Humidity",
+        "dataType": {
+          "type": "double"
+        }
+      },
+      {
+        "identifier": "shake",
+        "dataType": {
+          "type": "double"
+        }
+      },
+      {
+        "identifier": "camera",
+        "dataType": {
+          "specs": {
+            "item": {
+              "type": "int"
+            },
+            "size": "2"
+          },
+          "type": "array"
+        }
+      }
+    ]
+  }
