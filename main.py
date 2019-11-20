@@ -58,9 +58,9 @@ def main():
 
     print("if you want to stop the programe please input \"ctrl + c\"")
 
-    #localserver.run()
-    sleep(3)
-    sender.disconnect()
+    localserver.run()
+    # sleep(3)
+    # sender.disconnect()
     print("end")
 
 main()
