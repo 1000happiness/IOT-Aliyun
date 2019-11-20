@@ -25,7 +25,8 @@ class IOT_Sender:
             device_secret=sender_property["link_authentication"]["device_secret"]
         )
 
-        self.lk.thing_setup("device_property.json")
+        self.lk.thing_setup()
+        
 
         self.IOT_model = IOT_model
 
@@ -54,12 +55,14 @@ class IOT_Sender:
 
     def begin_property_post(self):
         while(self.ready):
-            print("POST ", self.IOT_model.get_property())
-            # self.lk.thing_post_property(self.IOT_model.get_property())
+            rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
+            if(rc == 0):
+                print("SEND ", self.IOT_model.get_property(), " SUCCESS")
+            else:
+                print("SENDER FAIL")
             for i in range(100):
                 if(self.ready):
                     sleep(self.internal_time / 100.0)
                 else:
                     break
-    
     

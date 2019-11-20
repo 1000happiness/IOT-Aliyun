@@ -1,14 +1,21 @@
 from tornado import ioloop
 from tornado import web
+from json import loads
 
 class PropertyHandler(web.RequestHandler):
     def initialize(self, IOT_model):
         self.IOT_model = IOT_model
 
     def post(self):
-        device_name = self.get_argument("device_name")  # 获取url的参数值
-        value = self.get_attribute("value")
-        self.IOT_model.update_property(device_name, value)
+        print(self.request.body.decode("utf-8"))
+        args = loads(self.request.body.decode("utf-8"))
+        print("body: ")
+        print(args)
+
+        self.IOT_model.update_property(args["device_name"], args["value"])
+
+        print(self.IOT_model.get_property())
+        self.write("{\"success\": true}")
 
 class IOT_Localserver:
     #localserver_property
