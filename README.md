@@ -27,7 +27,7 @@ IOT_Sender.py向阿里云发送数据的模块
     errmsg: ""
 }
 ```
-# usage example
+usage example
 curl -X POST -i http://localhost:8092/property --data '{
     "device_name":"camera_1",
     "value":2
