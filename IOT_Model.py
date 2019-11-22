@@ -7,7 +7,11 @@ class IOT_Model:
     #device property sended to cloud
     device_property_tocloud = {}
 
+    #update_flag
     update_flag = False
+
+    #picture
+    picture = ""
 
     #init: initailize device_property_tocloud by device_property_json
     def __init__(self, device_property_json):
@@ -55,5 +59,11 @@ class IOT_Model:
     def get_update_flag(self):
         return self.update_flag
     
-    def change_update_flag(self, new_flag):
+    def set_update_flag(self, new_flag):
         self.update_flag = new_flag
+
+    def get_picture(self):
+        return self.picture
+
+    def set_picture(self, new_picture):
+        self.picture = new_picture

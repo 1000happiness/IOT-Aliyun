@@ -56,9 +56,9 @@ class IOT_Sender:
         retry_count = 1
         while(self.ready):
             if(self.lk.check_state() == linkkit.LinkKit.LinkKitState.CONNECTED):
+                # send property
                 retry_count = 1
                 rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
-                rc = 0
                 if(rc == 0):
                     print("SEND ", self.IOT_model.get_property(), " SUCCESS")
                 else:
@@ -68,10 +68,40 @@ class IOT_Sender:
                         if(not self.IOT_model.get_update_flag()):
                             sleep(1)
                         else:
-                            self.IOT_model.change_update_flag(False)
+                            self.IOT_model.set_update_flag(False)
                             break
                     else:
                         break
+            else:
+                if(retry_count < 10):
+                    print("disconnect from aliyun accidently, trying to connect again:", retry_count)
+                    if(self.lk.check_state() != linkkit.LinkKit.LinkKitState.CONNECTING):
+                        self.lk.connect_async()
+                    retry_count = retry_count + 1
+                    sleep(pow(2,retry_count))
+                else:
+                    print("disconnect from aliyun accidently, the programme can not connect again")
+                    break
+
+            if(self.lk.check_state() == linkkit.LinkKit.LinkKitState.CONNECTED):
+                # send picture
+                picture = self.IOT_model.get_picture()
+                if(picture != ""):
+                    rc = self.lk.thing_raw_post_data(picture)
+                    if(rc == 0):
+                        print("SEND PICTURE SUCCESS")
+                        self.IOT_model.set_picture("")
+                    else:
+                        print("SEND FAIL")
+                    for i in range(self.internal_time):
+                        if(self.ready):
+                            if(not self.IOT_model.get_update_flag()):
+                                sleep(1)
+                            else:
+                                self.IOT_model.set_update_flag(False)
+                                break
+                        else:
+                            break
             else:
                 if(retry_count < 10):
                     print("disconnect from aliyun accidently, trying to connect again:", retry_count)

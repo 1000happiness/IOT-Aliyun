@@ -26,7 +26,7 @@ class PlateNumberHandler(web.RequestHandler):
         args = loads(self.request.body.decode("utf-8"))
 
         rc, errmsg = self.IOT_model.update_property("PlateNumber", args["PlateNumber"])
-        self.IOT_model.change_update_flag(True)
+        self.IOT_model.set_update_flag(True)
 
         if(rc == 0):
             print("device property now: \n", self.IOT_model.get_property())
@@ -40,7 +40,19 @@ class FlushHandler(web.RequestHandler):
         self.IOT_model = IOT_model
 
     def post(self):
-        self.IOT_model.change_update_flag(True)
+        self.IOT_model.set_update_flag(True)
+        self.write("{\"success\": true}")
+
+class PictureHandler(web.RequestHandler):
+    def initialize(self, IOT_model):
+        self.IOT_model = IOT_model
+
+    def post(self):
+        args = loads(self.request.body.decode("utf-8"))
+
+        self.IOT_model.set_picture(args["picture"])
+        self.IOT_model.set_update_flag(True)
+
         self.write("{\"success\": true}")
 
 class IOT_Localserver:
@@ -59,7 +71,8 @@ class IOT_Localserver:
         app = web.Application([
             (r"/property", PropertyHandler, {"IOT_model": self.IOT_model}),  # 注册路由
             (r"/plate_number", PlateNumberHandler, {"IOT_model": self.IOT_model}),
-            (r"/flush", FlushHandler, {"IOT_model": self.IOT_model})
+            (r"/flush", FlushHandler, {"IOT_model": self.IOT_model}),
+            (r"/picture", PictureHandler, {"IOT_model": self.IOT_model})
         ])
         app.listen(self.localserver_property["port"])
         ioloop.IOLoop.current().start()
