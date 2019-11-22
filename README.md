@@ -14,17 +14,45 @@ IOT_Sender.py向阿里云发送数据的模块
 // POST /property
 // request
 {
-    device_name:"camera_1",
-    value: 1
+    "device_name":"camera_1",
+    "value": 1
 }
 // success response
 {
-    success: true
+    "success": true
 }
 // error response 
 {
-    success: false,
-    errmsg: ""
+    "success": false,
+    "errmsg": ""
+}
+
+// POST /plate_number
+// request
+{
+    "PlateNumber": "苏A -00000"
+}
+// success response
+{
+    "success": true
+}
+// error response 
+{
+    "success": false,
+    "errmsg": ""
+}
+
+// POST /flush
+// request
+{}
+// success response
+{
+    "success": true
+}
+// error response #never happned
+{
+    "success": false,
+    "errmsg": ""
 }
 ```
 usage example
@@ -37,4 +65,4 @@ curl -X POST -i http://localhost:8092/property --data '{
 
 ## about device name
 
-设备名是访问的服务器的一个重要参数，对于本地服务器而言相当于标识。如果某一个设备在系统中只有一个（例如温度计），其命名为device_property.json中identifier的值；如果某一个设备在系统中出现多次，其命名为device_property.json中的identifier的值加上从0开始计数的设备编号，两者用下划线隔开，例如”camera_1”
+设备名是访问的服务器的一个重要参数，对于本地服务器而言相当于标识。如果某一个设备在系统中只有一个（例如温度计），其命名为device_property.json中identifier的值，例如”Shake”；如果某一个设备在系统中出现多次，其命名为device_property.json中的identifier的值加上从0开始计数的设备编号，两者用下划线隔开，例如”Camera_1”
