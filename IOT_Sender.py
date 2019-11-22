@@ -93,15 +93,6 @@ class IOT_Sender:
                         self.IOT_model.set_picture("")
                     else:
                         print("SEND FAIL")
-                    for i in range(self.internal_time):
-                        if(self.ready):
-                            if(not self.IOT_model.get_update_flag()):
-                                sleep(1)
-                            else:
-                                self.IOT_model.set_update_flag(False)
-                                break
-                        else:
-                            break
             else:
                 if(retry_count < 10):
                     print("disconnect from aliyun accidently, trying to connect again:", retry_count)
