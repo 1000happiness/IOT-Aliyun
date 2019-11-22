@@ -7,15 +7,18 @@ class PropertyHandler(web.RequestHandler):
         self.IOT_model = IOT_model
 
     def post(self):
-        print(self.request.body.decode("utf-8"))
         args = loads(self.request.body.decode("utf-8"))
         print("body: ")
         print(args)
 
-        self.IOT_model.update_property(args["device_name"], args["value"])
+        rc, errmsg = self.IOT_model.update_property(args["device_name"], args["value"])
 
-        print(self.IOT_model.get_property())
-        self.write("{\"success\": true}")
+        if(rc == 0):
+            print("device property now: \n", self.IOT_model.get_property())
+            self.write("{\"success\": true}")
+        else:
+            print("update property error:", errmsg)
+            self.write("{\"success\": false, \"errmsg\": \"" + errmsg +"\"}")
 
 class IOT_Localserver:
     #localserver_property
@@ -29,7 +32,7 @@ class IOT_Localserver:
         self.IOT_model = IOT_model
 
     def run(self):
-        print("The local server is running in %s port" , self.localserver_property["port"])
+        print("The local server is running in", self.localserver_property["port"], "port")
         app = web.Application([
             (r"/property", PropertyHandler, {"IOT_model": self.IOT_model}),  # 注册路由
         ])

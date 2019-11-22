@@ -27,8 +27,19 @@ def readjson(path):
 # print(readjson(localserver_property_path))
 
 @async
-def run_sender(sender):
-    print("Connecting to Aliyun")
+def begin_sender(sender):
+    
+    sender.begin_property_post()
+
+def sig_exit(signum, sender):
+    pass
+
+def main():
+    model = IOT_Model(readjson(device_property_path))
+    sender = IOT_Sender(readjson(device_authentication_path), model)
+    localserver = IOT_Localserver(readjson(localserver_property_path), model)
+    
+    print("Connect to Aliyun")
     sender.connect()
     i = 0
     while(True):
@@ -41,20 +52,12 @@ def run_sender(sender):
         if(i == 10):
             break
     if(i == 10):
-        print("IOT_sender: timeout error")
+        print("IOT_sender: can not connect to ALiyun timeout error")
+        return
     else:
-        print("Begin post property to Aliyun")
-        sender.begin_property_post()
+        print("Begin send property to Aliyun")
 
-def sig_exit(signum, sender):
-    pass
-
-def main():
-    model = IOT_Model(readjson(device_property_path))
-    sender = IOT_Sender(readjson(device_authentication_path), model)
-    localserver = IOT_Localserver(readjson(localserver_property_path), model)
-    
-    run_sender(sender)
+    begin_sender(sender)
 
     print("if you want to stop the programe please input \"ctrl + c\"")
 
