@@ -49,7 +49,23 @@ IOT_Sender.py向阿里云发送数据的模块
 {
     "success": true
 }
-// error response #never happned
+// error response never happned
+{
+    "success": false,
+    "errmsg": ""
+}
+
+// POST /picture
+// request
+the sender wiil send the picture to Aliyun immidiately
+{
+    "picture" : "12323121231212sdkvkjawehlkajnvkjeauihesdnvkjabgkwaef" //base64 string
+}
+// success response
+{
+    "success": true
+}
+// error response never happned
 {
     "success": false,
     "errmsg": ""
