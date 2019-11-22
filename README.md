@@ -66,3 +66,6 @@ curl -X POST -i http://localhost:8092/property --data '{
 ## about device name
 
 设备名是访问的服务器的一个重要参数，对于本地服务器而言相当于标识。如果某一个设备在系统中只有一个（例如温度计），其命名为device_property.json中identifier的值，例如”Shake”；如果某一个设备在系统中出现多次，其命名为device_property.json中的identifier的值加上从0开始计数的设备编号，两者用下划线隔开，例如”Camera_1”
+
+## somethine more
+请查阅 IOT脚本使用方式.docx
