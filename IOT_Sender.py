@@ -56,15 +56,20 @@ class IOT_Sender:
         retry_count = 1
         while(self.ready):
             if(self.lk.check_state() == linkkit.LinkKit.LinkKitState.CONNECTED):
-                # rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
+                retry_count = 1
+                rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
                 rc = 0
                 if(rc == 0):
                     print("SEND ", self.IOT_model.get_property(), " SUCCESS")
                 else:
                     print("SEND FAIL")
-                for i in range(100):
+                for i in range(self.internal_time):
                     if(self.ready):
-                        sleep(self.internal_time / 100.0)
+                        if(not self.IOT_model.get_update_flag()):
+                            sleep(1)
+                        else:
+                            self.IOT_model.change_update_flag(False)
+                            break
                     else:
                         break
             else:
@@ -73,7 +78,7 @@ class IOT_Sender:
                     if(self.lk.check_state() != linkkit.LinkKit.LinkKitState.CONNECTING):
                         self.lk.connect_async()
                     retry_count = retry_count + 1
-                    sleep(2 * retry_count)
+                    sleep(pow(2,retry_count))
                 else:
                     print("disconnect from aliyun accidently, the programme can not connect again")
                     break

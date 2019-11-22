@@ -7,6 +7,7 @@ class IOT_Model:
     #device property sended to cloud
     device_property_tocloud = {}
 
+    update_flag = False
 
     #init: initailize device_property_tocloud by device_property_json
     def __init__(self, device_property_json):
@@ -31,24 +32,28 @@ class IOT_Model:
                         self.device_property_tocloud[name_index[0]] = tuple(temp_list)
                         return 0, ""
                     else:
-                        return 2, "device value type error"
+                        return 1, "device value type error"
                 else: 
-                    return 3, "device_name error"
+                    return 2, "device_name error"
             else:
-                return 3, "device_name error"
+                return 2, "device_name error"
 
         else:
             if(device_name in self.device_property_tocloud):
-                if(str(type(value))[8:-2] == self.device_property_datatype[device_name]["type"]):
-                    if(eval(self.device_property_datatype["device_name"]["specs"]["min"]) <= value <= eval(self.device_property_datatype["device_name"]["specs"]["max"])):
-                        self.device_property_tocloud[device_name] = value
-                        return 0, ""
-                    else:
-                        return 1, "device value range error"
+                print(str(type(value))[8:-2], self.device_property_datatype[device_name]["type"])
+                if(str(type(value))[8:-2] == self.device_property_datatype[device_name]["type"]) or (str(type(value))[8:-2] == "str" and self.device_property_datatype[device_name]["type"] == "text"):
+                    self.device_property_tocloud[device_name] = value
+                    return 0, ""
                 else:
-                    return 2, "device value type error"
+                    return 1, "device value type error"
             else:
-                return 3, "device_name error"
+                return 2, "device_name error"
     
     def get_property(self):
         return self.device_property_tocloud
+
+    def get_update_flag(self):
+        return self.update_flag
+    
+    def change_update_flag(self, new_flag):
+        self.update_flag = new_flag
