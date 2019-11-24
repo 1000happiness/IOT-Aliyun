@@ -59,13 +59,14 @@ IOT_Sender.py向阿里云发送数据的模块
 // request
 the sender wiil send the picture to Aliyun immidiately
 {
-    "Camera_1" : "12323121231212sdkvkjawehlkajnvkjeauihesdnvkjabgkwaef" //base64 string
+    "device_name":"Camera_1" //must be "Camera" or "Camera_XXX" 
+    "picture" : "12323121231212sdkvkjawehlkajnvkjeauihesdnvkjabgkwaef" //base64 string
 }
 // success response
 {
     "success": true
 }
-// error response never happned
+// error response 
 {
     "success": false,
     "errmsg": ""
