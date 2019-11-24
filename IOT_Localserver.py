@@ -50,10 +50,14 @@ class PictureHandler(web.RequestHandler):
     def post(self):
         args = self.request.body.decode("utf-8")
 
-        self.IOT_model.set_picture(args)
-        self.IOT_model.set_update_flag(True)
-
-        self.write("{\"success\": true}")
+        rc, errmsg = self.IOT_model.set_picture(args)
+        if(rc == 0):
+            print("device property now: \n", self.IOT_model.get_property())
+            self.IOT_model.set_update_flag(True)
+            self.write("{\"success\": true}")
+        else:
+            print("update property error:", errmsg)
+            self.write("{\"success\": false, \"errmsg\": \"" + errmsg +"\"}")
 
 class IOT_Localserver:
     #localserver_property

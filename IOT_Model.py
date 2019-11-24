@@ -66,4 +66,9 @@ class IOT_Model:
         return self.picture
 
     def set_picture(self, new_picture):
-        self.picture = new_picture
+        if(new_picture.find("Camera") != -1):
+            self.picture = new_picture
+            return 0, ""
+        else:
+            return 1, "camera not find"
+        
