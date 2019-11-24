@@ -87,7 +87,7 @@ class IOT_Sender:
                 # send picture
                 picture = self.IOT_model.get_picture()
                 if(picture != ""):
-                    rc = self.lk.thing_raw_post_data(picture)
+                    rc, request_id = self.lk.publish_topic(self.lk.to_full_topic("user/picture"), picture)
                     if(rc == 0):
                         print("SEND PICTURE SUCCESS")
                         self.IOT_model.set_picture("")
