@@ -58,7 +58,8 @@ class IOT_Sender:
             if(self.lk.check_state() == linkkit.LinkKit.LinkKitState.CONNECTED):
                 # send property
                 retry_count = 1
-                rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
+                # rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
+                rc = 0
                 if(rc == 0):
                     print("SEND ", self.IOT_model.get_property(), " SUCCESS")
                 else:

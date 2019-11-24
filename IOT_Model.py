@@ -44,8 +44,7 @@ class IOT_Model:
 
         else:
             if(device_name in self.device_property_tocloud):
-                print(str(type(value))[8:-2], self.device_property_datatype[device_name]["type"])
-                if(str(type(value))[8:-2] == self.device_property_datatype[device_name]["type"]) or (str(type(value))[8:-2] == "str" and self.device_property_datatype[device_name]["type"] == "text"):
+                if(str(type(value))[8:-2] == self.device_property_datatype[device_name]["type"]) or (str(type(value))[8:-2] == "str" and self.device_property_datatype[device_name]["type"] == "text" or (str(type(value))[8:-2] == "int" and self.device_property_datatype[device_name]["type"] == "float")):
                     self.device_property_tocloud[device_name] = value
                     return 0, ""
                 else:
@@ -65,10 +64,16 @@ class IOT_Model:
     def get_picture(self):
         return self.picture
 
-    def set_picture(self, new_picture):
-        if(new_picture.find("Camera") != -1):
-            self.picture = new_picture
-            return 0, ""
+    def set_picture(self, new_picture_args):
+        if("device_name" in new_picture_args):
+            if(new_picture_args["device_name"].find("Camera") != -1):
+                if(new_picture_args["device_name"] in self.device_property_tocloud):
+                    self.picture = new_picture_args
+                    return 0, ""
+                else:
+                    return 1, "camera not exist"
+            else:
+                return 2, "not camera"
         else:
-            return 1, "camera not find"
+            return 3, "device_name error"
         

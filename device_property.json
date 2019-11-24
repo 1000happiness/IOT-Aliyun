@@ -1,6 +1,12 @@
 {
 	"properties":[
 		{
+			"identifier":"PlateNumber",
+			"dataType":{
+				"type":"text"
+			}
+		},
+		{
 			"identifier":"Temperature",
 			"dataType":{
 				"type":"float"
@@ -13,13 +19,7 @@
 			}
 		},
 		{
-			"identifier":"Shake",
-			"dataType":{
-				"type":"float"
-			}
-		},
-		{
-			"identifier":"PlateNumber",
+			"identifier":"Warning",
 			"dataType":{
 				"type":"text"
 			}
