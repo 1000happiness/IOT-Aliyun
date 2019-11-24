@@ -1,4 +1,5 @@
 from array import array
+from json import dumps
 
 class IOT_Model:
     #device property in json
@@ -67,13 +68,10 @@ class IOT_Model:
     def set_picture(self, new_picture_args):
         if("device_name" in new_picture_args):
             if(new_picture_args["device_name"].find("Camera") != -1):
-                if(new_picture_args["device_name"] in self.device_property_tocloud):
-                    self.picture = new_picture_args
-                    return 0, ""
-                else:
-                    return 1, "camera not exist"
+                self.picture = dumps(new_picture_args)
+                return 0, ""
             else:
-                return 2, "not camera"
+                return 2, "not Camera"
         else:
             return 3, "device_name error"
         

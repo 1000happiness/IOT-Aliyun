@@ -58,8 +58,7 @@ class IOT_Sender:
             if(self.lk.check_state() == linkkit.LinkKit.LinkKitState.CONNECTED):
                 # send property
                 retry_count = 1
-                # rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
-                rc = 0
+                rc, request_id = self.lk.thing_post_property(self.IOT_model.get_property())
                 if(rc == 0):
                     print("SEND ", self.IOT_model.get_property(), " SUCCESS")
                 else:
@@ -89,9 +88,11 @@ class IOT_Sender:
                 picture = self.IOT_model.get_picture()
                 if(picture != ""):
                     rc, request_id = self.lk.publish_topic(self.lk.to_full_topic("user/picture"), picture)
+                    print(picture)
                     if(rc == 0):
                         print("SEND PICTURE SUCCESS")
                         self.IOT_model.set_picture("")
+                        print(self.IOT_model.get_picture())
                     else:
                         print("SEND FAIL")
             else:

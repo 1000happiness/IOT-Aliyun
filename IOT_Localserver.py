@@ -12,7 +12,6 @@ class PropertyHandler(web.RequestHandler):
         rc, errmsg = self.IOT_model.update_property(args["device_name"], args["value"])
 
         if(rc == 0):
-            print("device property now: \n", self.IOT_model.get_property())
             self.write("{\"success\": true}")
         else:
             print("update property error:", errmsg)
@@ -29,10 +28,9 @@ class PlateNumberHandler(web.RequestHandler):
         self.IOT_model.set_update_flag(True)
 
         if(rc == 0):
-            print("device property now: \n", self.IOT_model.get_property())
             self.write("{\"success\": true}")
         else:
-            print("update property error:", errmsg)
+            print("plate number error:", errmsg)
             self.write("{\"success\": false, \"errmsg\": \"" + errmsg +"\"}")
 
 class FlushHandler(web.RequestHandler):
@@ -48,15 +46,14 @@ class PictureHandler(web.RequestHandler):
         self.IOT_model = IOT_model
 
     def post(self):
-        args = self.request.body.decode("utf-8")
+        args = loads(self.request.body.decode("utf-8"))
 
         rc, errmsg = self.IOT_model.set_picture(args)
         if(rc == 0):
-            print("device property now: \n", self.IOT_model.get_property())
             self.IOT_model.set_update_flag(True)
             self.write("{\"success\": true}")
         else:
-            print("update property error:", errmsg)
+            print("picture error:", errmsg)
             self.write("{\"success\": false, \"errmsg\": \"" + errmsg +"\"}")
 
 class IOT_Localserver:
