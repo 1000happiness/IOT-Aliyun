@@ -91,7 +91,7 @@ class IOT_Sender:
                     print(picture)
                     if(rc == 0):
                         print("SEND PICTURE SUCCESS")
-                        self.IOT_model.set_picture("")
+                        self.IOT_model.set_picture_direct("")
                         print(self.IOT_model.get_picture())
                     else:
                         print("SEND FAIL")

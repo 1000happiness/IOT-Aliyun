@@ -74,4 +74,7 @@ class IOT_Model:
                 return 2, "not Camera"
         else:
             return 3, "device_name error"
+
+    def set_picture_direct(self, new_picture):
+        self.picture = new_picture
         
