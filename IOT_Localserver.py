@@ -48,9 +48,9 @@ class PictureHandler(web.RequestHandler):
         self.IOT_model = IOT_model
 
     def post(self):
-        args = loads(self.request.body.decode("utf-8"))
+        args = self.request.body.decode("utf-8")
 
-        self.IOT_model.set_picture(args["picture"])
+        self.IOT_model.set_picture(args)
         self.IOT_model.set_update_flag(True)
 
         self.write("{\"success\": true}")
