@@ -1,0 +1,28 @@
+{
+	"properties":[
+		{
+			"identifier":"PlateNumber",
+			"dataType":{
+				"type":"text"
+			}
+		},
+		{
+			"identifier":"Temperature",
+			"dataType":{
+				"type":"float"
+			}
+		},
+		{
+			"identifier":"Humidity",
+			"dataType":{
+				"type":"float"
+			}
+		},
+		{
+			"identifier":"Warning",
+			"dataType":{
+				"type":"text"
+			}
+		}
+	]
+}
