@@ -37,14 +37,13 @@ def main():
         aliyun_property, sender_property = prechecker.register(model)
         blank_string = 20 * [(" " * 100 + "\n")]
         
-        file = open(aliyun_property_path, "r+")
+        file = open(aliyun_property_path, "w")
         file.writelines(blank_string)
         file.seek(0,0)
         file.write(dumps(aliyun_property))
         file.close()
 
-        print(sender_property)
-        file = open(sender_property_path, "r+")
+        file = open(sender_property_path, "w")
         file.writelines(blank_string)
         file.seek(0,0)
         file.write(dumps(sender_property))
