@@ -1,1 +1,1 @@
-nothing
+这里的脚本对应的在云端的设备是 test_device_1
