@@ -3,18 +3,32 @@
 该脚本主要负责将硬件信息上传至云端，实现方式为：首先该脚本在硬件本地的一个端口运行一个服务器，硬件可以随时访问服务器，将最新的硬件信息通过http连接上传至本地服务器，而该服务器（local server）会根据硬件的信息实时更新本地物模型（model）上的数据；同时该脚本在本地会运行数据发送模块，每隔一段时间向阿里云服务器发送物模型上的数据
 
 ## architecture
+IOT_Prechecker.py注册验证脚本
+
 IOT_Localserver.py本地服务器
+
 IOT_model.py物模型
+
 IOT_Sender.py向阿里云发送数据的模块
+
 这三个文件请不要进行任何更改，如果怀疑此处python脚本出现问题请与刘千禧（13162008952）联系
 
-## usage
+## 配置文件
+Aliyun_property.json 阿里云账号配置文件，用于设备注册
+
+Device_proeprty.json 设备发送给阿里云的数据类型和名称，用于设备初始化
+
+Localserver_property.json 设备本地服务器的信息，包含服务器运行的端口
+
+Sender_property.json 设备认证文件和发送消息的间隔，该文件在新硬件上并不存在，在脚本第一运行，注册设备后会自动生成
+
+## 使用方式
 
 ```json
 // POST /property
 // request
 {
-    "device_name":"camera_1",
+    "device_name":"Camera_1",
     "value": 1
 }
 // success response
@@ -74,7 +88,7 @@ the sender wiil send the picture to Aliyun immidiately
 ```
 usage example
 
-curl -X POST -i http://localhost:8092/property --data '{
+curl -X POST -i http://localhost:8093/property --data '{
     "device_name":"camera_1",
     "value":2
 }'
