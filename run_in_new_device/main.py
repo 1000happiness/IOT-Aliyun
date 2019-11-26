@@ -34,6 +34,7 @@ def main():
     prechecker = IOT_Prechecker(readjson(aliyun_property_path))
 
     if(not prechecker.check()):
+        print("begin to register")
         aliyun_property, sender_property = prechecker.register(model)
         blank_string = 20 * [(" " * 100 + "\n")]
         
